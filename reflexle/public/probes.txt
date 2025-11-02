@@ -5,7 +5,7 @@ flash
 vivid
 shout
 quick
-jumpyu
+jumpy
 dozen
 frown
 taxes
