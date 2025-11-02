@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { initPRNG, makeDailySeed, makeRandomSeed, pickHiddenWord, scheduleFixedGuesses } from "../logic/seed";
 import { computeWordleFeedback } from "../logic/feedback";
 import { comparePatterns } from "../logic/patterns";
