@@ -19,7 +19,7 @@ jobs:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: reflexle  
+        working-directory: reflexle   # build inside subfolder
     steps:
       - uses: actions/checkout@v4
 
@@ -27,21 +27,28 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 20
+          cache: 'npm'
+          cache-dependency-path: reflexle/package-lock.json
 
+      # Use npm ci if lockfile exists, else npm i
       - name: Install dependencies
-        run: npm ci
+        run: |
+          if [ -f package-lock.json ]; then
+            npm ci
+          else
+            npm install
+          fi
 
       - name: Build
         run: npm run build
 
-      # SPA routing fix: create 404.html = index.html
       - name: Copy 404 for SPA
         run: cp dist/index.html dist/404.html
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: reflexle/dist         
+          path: reflexle/dist         # artifact from subfolder
 
   deploy:
     needs: build
