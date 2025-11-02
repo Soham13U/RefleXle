@@ -4,18 +4,19 @@ import Board from "./components/Board";
 import HiddenGuessModal from "./components/HiddenGuessModal";
 import ResultModal from "./components/ResultModal";
 import ColorLegend from "./components/ColorLegend";
+import InfoModal from "./components/InfoModal";
 import { useGame } from "./hooks/useGame";
 
 export default function App() {
   const [showHiddenGuess, setShowHiddenGuess] = useState(false);
   const [showResult, setShowResult] = useState(false);
+  const [showInfo, setShowInfo] = useState(false);
 
   const {
     state,
     ready,
     startDaily,
     startUnlimited,
-    openHiddenGuess,
     submitHiddenGuess,
     cycleTile,
     submitRound,
@@ -28,14 +29,12 @@ export default function App() {
     onForceGuess: () => setShowHiddenGuess(true),
   });
 
-  // Force guess modal after round 5 if needed (only when state exists)
   useEffect(() => {
     if (ready && state) {
       forceHiddenGuessIfNeeded();
     }
   }, [ready, state, forceHiddenGuessIfNeeded]);
 
-  // Unified loading guard: wait for both lists (ready) AND initial game state
   if (!ready || !state) {
     return (
       <div className="min-h-screen grid place-items-center bg-neutral-950 text-neutral-100">
@@ -46,6 +45,9 @@ export default function App() {
     );
   }
 
+  const showFloatingCTA =
+    state.status === "playing" && canSubmitHiddenGuess() && !state.hiddenGuessOutcome;
+
   return (
     <div className="min-h-screen bg-neutral-950 text-neutral-100">
       <Header
@@ -53,9 +55,7 @@ export default function App() {
         seed={state.seed}
         onDaily={startDaily}
         onUnlimited={startUnlimited}
-        onOpenHiddenGuess={() => setShowHiddenGuess(true)}
-        hiddenGuessUsed={!!state.hiddenGuessOutcome}
-        canGuess={canSubmitHiddenGuess()}
+        onOpenInfo={() => setShowInfo(true)}
       />
 
       <main className="mx-auto max-w-3xl px-4 md:px-6 py-6 md:py-8">
@@ -63,13 +63,24 @@ export default function App() {
           state={state}
           onCycle={(i) => cycleTile(i)}
           onSubmitRound={() => submitRound()}
-          onOpenHiddenGuess={() => setShowHiddenGuess(true)}
           onNewUnlimited={() => newUnlimitedGame()}
         />
         <div className="mt-6">
           <ColorLegend />
         </div>
       </main>
+
+      {/* Floating CTA for Hidden Guess */}
+      {showFloatingCTA && (
+        <div className="fixed bottom-4 inset-x-0 z-40 flex justify-center px-4">
+          <button
+            className="px-5 py-3 rounded-full bg-emerald-500 text-black font-semibold shadow-lg hover:bg-emerald-400"
+            onClick={() => setShowHiddenGuess(true)}
+          >
+            Guess Hidden Word
+          </button>
+        </div>
+      )}
 
       <HiddenGuessModal
         open={showHiddenGuess}
@@ -80,6 +91,8 @@ export default function App() {
           setShowHiddenGuess(false);
         }}
       />
+
+      <InfoModal open={showInfo} onClose={() => setShowInfo(false)} />
 
       <ResultModal
         open={showResult}

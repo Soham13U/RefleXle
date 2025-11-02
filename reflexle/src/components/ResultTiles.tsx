@@ -7,7 +7,7 @@ export default function ResultTiles({
     <div className="flex gap-1 sm:gap-2" aria-label="Pattern evaluation">
       {evalTiles.map((e, i) => {
         const base =
-          "h-10 w-10 rounded grid place-items-center text-xs font-semibold";
+          "h-10 w-10 rounded grid place-items-center text-xs font-semibold text-white"; // all glyphs white now
         const ring =
           e === "correct"
             ? "ring-2 ring-emerald-400"

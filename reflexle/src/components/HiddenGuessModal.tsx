@@ -49,7 +49,7 @@ export default function HiddenGuessModal({
             onChange={(e) => setWord(e.target.value)}
             maxLength={5}
             className="flex-1 rounded bg-neutral-800 border border-neutral-700 px-3 py-2 uppercase tracking-widest"
-            placeholder="ABCDE"
+            placeholder=""
           />
           <div className="flex gap-2">
             <button

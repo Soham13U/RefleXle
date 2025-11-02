@@ -4,19 +4,19 @@ export default function ColorLegend() {
       <div className="flex items-center gap-2">
         <div className="h-6 w-6 grid place-items-center rounded bg-neutral-800 text-neutral-300 border border-neutral-700">■</div>
         <div>
-          <b>Black</b> — letter absent (Wordle’s gray)
+          <b>Black</b> - letter absent 
         </div>
       </div>
       <div className="flex items-center gap-2">
         <div className="h-6 w-6 grid place-items-center rounded bg-amber-400 text-black">▲</div>
         <div>
-          <b>Yellow</b> — letter exists elsewhere (misplaced)
+          <b>Yellow</b> - letter exists elsewhere (misplaced)
         </div>
       </div>
       <div className="flex items-center gap-2">
         <div className="h-6 w-6 grid place-items-center rounded bg-emerald-500 text-black">●</div>
         <div>
-          <b>Green</b> — letter &amp; position match
+          <b>Green</b> - letter &amp; position match
         </div>
       </div>
     </div>

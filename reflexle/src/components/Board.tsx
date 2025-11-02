@@ -1,16 +1,15 @@
-import RoundRow from "./RoundRow";
 import type { GameState } from "../hooks/useGame";
+import RoundRow from "./RoundRow";
+
 export default function Board({
   state,
   onCycle,
   onSubmitRound,
-  onOpenHiddenGuess,
   onNewUnlimited,
 }: {
   state: GameState;
   onCycle: (i: number) => void;
   onSubmitRound: () => void;
-  onOpenHiddenGuess: () => void;
   onNewUnlimited: () => void;
 }) {
   const current = state.rounds[state.roundIndex];
@@ -22,13 +21,6 @@ export default function Board({
           Round {state.roundIndex + 1} / {state.rounds.length}
         </div>
         <div className="flex gap-2">
-          <button
-            className="px-3 py-2 text-sm rounded bg-neutral-800 hover:bg-neutral-700"
-            onClick={onOpenHiddenGuess}
-            disabled={!!state.hiddenGuessOutcome || state.status !== "playing"}
-          >
-            Hidden Guess
-          </button>
           {state.mode === "unlimited" && (
             <button
               className="px-3 py-2 text-sm rounded bg-neutral-800 hover:bg-neutral-700"

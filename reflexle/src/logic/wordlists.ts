@@ -1,4 +1,3 @@
-// Loads public/solutions.txt and public/probes.txt (fallback to small built-ins)
 
 const fallbackSolutions = [
   "crane","bring","point","plant","slate","audio","grind","shard","smile","trace"
