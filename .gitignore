@@ -1,0 +1,78 @@
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+node_modules
+dist
+dist-ssr
+*.local
+
+# Editor directories and files
+.vscode/*
+!.vscode/extensions.json
+.idea
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# Node modules
+node_modules/
+
+
+# Build output
+dist/
+build/
+
+# Local environment files
+.env
+.env.*.local
+
+# Log files
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+vite.config.ts.timestamp-*
+
+# Editor and OS files
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# TypeScript cache
+*.tsbuildinfo
+
+# Temporary files
+*.log
+*.tmp
+*.temp
+
+# Coverage / testing
+coverage/
+jest-cache/
+jest-test-results.json
+
+# Vite / Tailwind / PostCSS cache
+.cache/
+.postcssrc.*
+tailwind.config.backup.*
+vite.config.backup.*
+
+# Misc
+*.local
+*.swp
+*.swo
+
+# Optional lock files (uncomment one if you want to ignore specific package manager locks)
+# package-lock.json
+# yarn.lock
+# pnpm-lock.yaml
