@@ -1,32 +1,28 @@
 
-const fallbackSolutions = [
-  "crane","bring","point","plant","slate","audio","grind","shard","smile","trace"
-];
-const fallbackProbes = ["slate","crane","point","audio","plant"];
-
-async function fetchList(url: string): Promise<string[] | null> {
+export async function loadWordLists(): Promise<{ solutions: string[]; probes: string[] }> {
+  const base = import.meta.env.BASE_URL; // e.g. "/" or "/RefleXle/"
   try {
-    const res = await fetch(url);
-    if (!res.ok) return null;
-    const text = await res.text();
-    return text
+    const [sol, pro] = await Promise.all([
+      fetch(`${base}solutions.txt`).then(r => (r.ok ? r.text() : "")),
+      fetch(`${base}probes.txt`).then(r => (r.ok ? r.text() : "")),
+    ]);
+
+    const solutions = sol
       .split(/\r?\n/)
-      .map((s) => s.trim().toLowerCase())
-      .filter((s) => /^[a-z]{5}$/.test(s));
-  } catch {
-    return null;
+      .map(s => s.trim().toLowerCase())
+      .filter(Boolean);
+
+    const probes = pro
+      .split(/\r?\n/)
+      .map(s => s.trim().toLowerCase())
+      .filter(Boolean);
+
+    return { solutions, probes };
+  } catch (err) {
+    console.error("Failed to load word lists:", err);
+    return {
+      solutions: ["crane", "bring", "point", "flash", "vivid"],
+      probes: ["slate", "crane", "point", "audio", "plant"],
+    };
   }
-}
-
-export async function loadWordLists(): Promise<{ solutions: string[]; probes: string[]; }> {
-  // Try /solutions.txt and /probes.txt from public root
-  const [sol, pro] = await Promise.all([
-    fetchList("/solutions.txt"),
-    fetchList("/probes.txt"),
-  ]);
-
-  return {
-    solutions: sol && sol.length ? sol : fallbackSolutions,
-    probes: pro && pro.length ? pro : fallbackProbes,
-  };
 }

@@ -17,6 +17,9 @@ concurrency:
 jobs:
   build:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: reflexle  
     steps:
       - uses: actions/checkout@v4
 
@@ -25,20 +28,20 @@ jobs:
         with:
           node-version: 20
 
-      - name: Install deps
+      - name: Install dependencies
         run: npm ci
 
       - name: Build
         run: npm run build
 
-      # SPA routing fix: make 404.html = index.html
+      # SPA routing fix: create 404.html = index.html
       - name: Copy 404 for SPA
         run: cp dist/index.html dist/404.html
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: dist
+          path: reflexle/dist         
 
   deploy:
     needs: build
