@@ -13,12 +13,14 @@ export default function Board({
   onNewUnlimited: () => void;
 }) {
   const current = state.rounds[state.roundIndex];
+  // Clamp the displayed round number so it never exceeds the total (fixes 6/5)
+  const displayRound = Math.min(state.roundIndex + 1, state.rounds.length);
 
   return (
     <section>
       <div className="flex items-center justify-between mb-3">
         <div className="text-sm text-neutral-400">
-          Round {state.roundIndex + 1} / {state.rounds.length}
+          Round {displayRound} / {state.rounds.length}
         </div>
         <div className="flex gap-2">
           {state.mode === "unlimited" && (

@@ -13,14 +13,15 @@ export default function RoundRow({
   onCycle: (i: number) => void;
   onSubmit: () => void;
 }) {
+  // Keep negative margins (extra width) + single-column centered on mobile
   const wrapperBase =
-    "grid grid-cols-1 sm:grid-cols-[1fr_auto_auto] items-center gap-3 p-3 rounded border";
+    "relative -mx-2 sm:-mx-4 grid grid-cols-1 sm:grid-cols-[2fr_1.2fr_auto] items-stretch sm:items-center gap-3 px-4 sm:px-6 py-3 rounded border";
   const wrapperTheme = "border-neutral-800 bg-neutral-900/40";
 
   return (
     <div className={`${wrapperBase} ${wrapperTheme}`}>
       {/* Fixed Guess */}
-      <div className="flex flex-wrap gap-1 sm:gap-2">
+      <div className="w-full flex flex-nowrap gap-1 sm:gap-2 justify-center sm:justify-start">
         {round.fixedGuess.split("").map((ch, i) => (
           <div
             key={i}
@@ -32,7 +33,7 @@ export default function RoundRow({
       </div>
 
       {/* Pattern picker */}
-      <div className="flex items-center justify-center">
+      <div className="w-full flex items-center justify-center sm:justify-center">
         <PatternPicker
           disabled={!isActive || round.submitted}
           pattern={(round.playerPattern ?? ["B", "B", "B", "B", "B"]) as (
@@ -45,7 +46,7 @@ export default function RoundRow({
       </div>
 
       {/* Submit / Result */}
-      <div className="flex items-center justify-end gap-2">
+      <div className="w-full flex items-center justify-center sm:justify-end gap-2">
         {!round.submitted ? (
           <button
             className="px-3 py-2 text-sm rounded bg-emerald-500 text-black font-semibold hover:bg-emerald-400 disabled:opacity-50"

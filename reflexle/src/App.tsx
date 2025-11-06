@@ -30,6 +30,18 @@ export default function App() {
   });
 
   useEffect(() => {
+    const KEY = "reflexle_hasSeenInfo_v1";
+    try {
+      if (!localStorage.getItem(KEY)) {
+        setShowInfo(true);
+        localStorage.setItem(KEY, "1");
+      }
+    } catch {
+      setShowInfo(true);
+    }
+  }, []);
+
+  useEffect(() => {
     if (ready && state) {
       forceHiddenGuessIfNeeded();
     }
@@ -70,7 +82,7 @@ export default function App() {
         </div>
       </main>
 
-      {/* Floating CTA for Hidden Guess */}
+      
       {showFloatingCTA && (
         <div className="fixed bottom-4 inset-x-0 z-40 flex justify-center px-4">
           <button

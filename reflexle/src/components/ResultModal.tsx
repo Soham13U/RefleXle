@@ -51,7 +51,7 @@ export default function ResultModal({
             className="px-3 py-2 rounded bg-neutral-800 hover:bg-neutral-700"
             onClick={copyShare}
           >
-            Copy share text
+            Copy Result
           </button>
           {state.mode === "unlimited" && (
             <button
